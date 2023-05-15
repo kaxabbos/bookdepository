@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Адреса</title>
+</head>
+
+<head th:insert="blocks/head :: head"></head>
+
+<body class="d-flex flex-column min-vh-100" style="background: url(&quot;/img/bg.jpg&quot;) top / cover;">
+<div th:insert="blocks/nav :: nav"></div>
+<main class="page product-page">
+    <section class="clean-block clean-product">
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-dark">Адреса</h2>
+            </div>
+            <div class="block-content">
+                <form action="/addresses/add" method="post">
+                    <div class="row" style="margin-bottom: 5px;">
+                        <div class="col">
+                            <input class="form-control" type="text" required="" name="address"
+                                   placeholder="Напишите адрес...">
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-primary" type="submit" style="margin-right: 15px;">Добавить</button>
+                        </div>
+                    </div>
+                </form>
+                <hr>
+                <form th:each="i : ${addresses}" th:action="'/addresses/edit/' + ${i.id}" method="post">
+                    <div class="row" style="margin-bottom: 5px;">
+                        <div class="col">
+                            <input class="form-control" type="text" required="" name="address" th:value="${i.address}">
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-primary" type="submit" style="margin-right: 15px;">Обновить</button>
+                        </div>
+                        <div class="col-auto">
+                            <a th:href="'/addresses/delete/' + ${i.id}" class="btn btn-danger" style="margin-right: 15px;">Удалить</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.js"></script>
+<script src="/js/vanilla-zoom.js"></script>
+<script src="/js/theme.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Редактировать машину</title>
+</head>
+
+<head th:insert="blocks/head :: head"></head>
+
+<body class="d-flex flex-column min-vh-100" style="background: url(&quot;/img/bg.jpg&quot;) top / cover;">
+<div th:insert="blocks/nav :: nav"></div>
+<main class="page product-page">
+    <section class="clean-block clean-product">
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-dark">Редактировать</h2>
+            </div>
+            <div class="block-content">
+                <form th:action="'/books/edit/' + ${book.id}" method="post" enctype="multipart/form-data">
+                    <div class="row" style="margin-bottom: 5px;">
+                        <div class="col">
+                            <div class="row d-xl-flex">
+                                <div class="col-xl-4 d-xl-flex">
+                                    <p>Название книги</p>
+                                </div>
+                                <div class="col"><input class="form-control" type="text" required="" name="name"
+                                                        th:value="${book.name}"></div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-xl-4 d-xl-flex">
+                                    <p>Дата</p>
+                                </div>
+                                <div class="col"><input class="form-control" type="date" required="" name="date"
+                                                        th:value="${book.date}"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 5px;">
+                        <div class="col">
+                            <div class="row d-xl-flex">
+                                <div class="col-xl-4 d-xl-flex">
+                                    <p>Адрес</p>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select" name="idAddress">
+                                        <option th:each="i : ${addresses}" th:value="${i.id}"
+                                                th:label="${i.address}"
+                                                th:selected="${book.address.id == i.id}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-xl-4 d-xl-flex">
+                                    <p>Автор</p>
+                                </div>
+                                <div class="col"><input class="form-control" type="number" required="" name="author"
+                                                        th:value="${book.description.author}"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 5px;">
+                        <div class="col">
+                            <div class="row d-xl-flex">
+                                <div class="col-xl-4 d-xl-flex">
+                                    <p>Возрастная категория</p>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select" name="category">
+                                        <option th:each="f : ${categorys}" th:value="${f}" th:label="${f.name}"
+                                                th:selected="${book.description.category == f}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-xl-4 d-xl-flex">
+                                    <p>Жанр</p>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select" name="genre">
+                                        <option th:each="t : ${genres}" th:value="${t}"
+                                                th:label="${t.name}"
+                                                th:selected="${book.description.genre == t}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 5px;">
+                        <div class="col">
+                            <div class="row d-xl-flex">
+                                <div class="col-xl-4 d-xl-flex">
+                                    <p>Количество страниц</p>
+                                </div>
+                                <div class="col"><input class="form-control" type="number" min="1"
+                                                        step="1" required="" name="quantity"
+                                                        th:value="${book.description.quantity}"></div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-xl-4 d-xl-flex">
+                                    <p>Фотография</p>
+                                </div>
+                                <div class="col"><input class="form-control" type="file" multiple
+                                                        accept="image/*" name="photos"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 5px;">
+                        <div class="col">
+                            <div class="row d-xl-flex">
+                                <div class="col-xl-2 d-xl-flex">
+                                    <p>Описание</p>
+                                </div>
+                                <div class="col"><input class="form-control" type="text" required="" name="description"
+                                                        th:value="${book.description.description}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 5px;">
+                        <div class="col">
+                            <button class="btn btn-primary" type="submit" style="margin-right: 15px;">Обновить</button>
+                            <button class="btn btn-secondary" type="reset">Очистить</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.js"></script>
+<script src="/js/vanilla-zoom.js"></script>
+<script src="/js/theme.js"></script>
+</body>
+
+</html>

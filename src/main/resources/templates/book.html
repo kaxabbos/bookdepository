@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="${book.name}"></title>
+</head>
+
+<head th:insert="blocks/head :: head"></head>
+
+<body class="d-flex flex-column min-vh-100" style="background: url(&quot;/img/bg.jpg&quot;) top / cover;">
+<div th:insert="blocks/nav :: nav"></div>
+<main class="page product-page">
+    <section class="clean-block clean-product">
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-info" th:text="${book.name}"></h2>
+            </div>
+            <div class="block-content">
+                <div class="product-info">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="carouselExample" class="carousel slide">
+                                <div class="carousel-inner">
+                                    <div th:each="p : ${book.photos}" class="carousel-item active">
+                                        <img th:src="'/img/' + ${p}" class="d-block w-100">
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                                        data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                                        data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info">
+                                <h3 style="font-weight: bold;">Дата: <span th:text="${book.date}"></span></h3>
+                                <div class="summary">
+                                    <p style="font-size: 20px;">Статус:&nbsp;
+                                        <span th:if="${book.free}" style="color: var(--bs-green);">Свободен</span>
+                                        <span th:unless="${book.free}" style="color: var(--bs-red);">Занят</span>
+                                    </p>
+                                </div>
+                                <div th:if="${role == 'MANAGER'}" class="summary mb-3">
+                                    <a th:href="'/books/edit/' + ${book.id}" class="btn btn-success" type="button"
+                                       style="margin-right: 15px;">
+                                        Редактировать
+                                    </a>
+                                    <a th:if="${book.free}" th:href="'/books/delete/' + ${book.id}" class="btn btn-danger"
+                                       type="button">Удалить</a>
+                                </div>
+                                <div th:if="${role == 'CLIENT' and book.free}" class="summary">
+                                    <form method="post" th:action="'/books/rent/' + ${book.id}">
+                                        <div class="row">
+                                            <div class="col-xl-8">
+                                                <input class="form-control form-control-lg" type="number" name="days"
+                                                       min="1" max="100" step="1" placeholder="Дней"></div>
+                                            <div class="col-xl-4">
+                                                <button class="btn btn-primary" type="submit">Занять</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="summary">
+                                    <p th:text="${book.description.description}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tbody>
+                            <tr>
+                                <td class="stat">Адрес</td>
+                                <td th:text="${book.address.address}"></td>
+                            </tr>
+                            <tr>
+                                <td class="stat">Автор</td>
+                                <td th:text="${book.description.author}"></td>
+                            </tr>
+                            <tr>
+                                <td class="stat">Возрастная категория</td>
+                                <td th:text="${book.description.category.name}"></td>
+                            </tr>
+                            <tr>
+                                <td class="stat">Жанр</td>
+                                <td th:text="${book.description.genre.name}"></td>
+                            </tr>
+                            <tr>
+                                <td class="stat">Количество страниц</td>
+                                <td th:text="${book.description.quantity}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.js"></script>
+<script src="/js/vanilla-zoom.js"></script>
+<script src="/js/theme.js"></script>
+</body>
+
+</html>

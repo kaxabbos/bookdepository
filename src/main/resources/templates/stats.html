@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Статистика</title>
+</head>
+
+<head th:insert="blocks/head :: head"></head>
+
+<body class="d-flex flex-column min-vh-100" style="background: url(&quot;/img/bg.jpg&quot;) top / cover;">
+<div th:insert="blocks/nav :: nav"></div>
+<main class="page product-page">
+    <section class="clean-block clean-product">
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-dark">Статистика</h2>
+            </div>
+            <div class="block-content">
+                <div class="row d-xl-flex" style="margin-bottom: 15px;">
+                    <div class="col d-xl-flex justify-content-xl-center"></div>
+                    <div class="col d-xl-flex justify-content-xl-start">
+                        <h4>Суммарное количество дней</h4>
+                    </div>
+                    <div class="col d-xl-flex justify-content-xl-end">
+                        <h4 th:text="${income}"></h4>
+                    </div>
+                    <div class="col d-xl-flex justify-content-xl-center"></div>
+                </div>
+                <div class="row d-xl-flex" style="margin-bottom: 15px;">
+                    <div class="col d-xl-flex justify-content-xl-center">
+                        <h4>Название книги</h4>
+                    </div>
+                    <div class="col d-xl-flex justify-content-xl-center">
+                        <h4>Количество дней</h4>
+                    </div>
+                </div>
+                <div th:each="s : ${statistics}" class="row d-xl-flex" style="margin-bottom: 15px;">
+                    <div class="col d-xl-flex justify-content-xl-center">
+                        <h4 th:text="${s.book.name}"></h4>
+                    </div>
+
+                    <div class="col d-xl-flex justify-content-xl-center">
+                        <h4 th:text="${s.days}"></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.js"></script>
+<script src="/js/vanilla-zoom.js"></script>
+<script src="/js/theme.js"></script>
+</body>
+
+</html>
